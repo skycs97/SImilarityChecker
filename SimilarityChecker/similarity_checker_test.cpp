@@ -3,49 +3,59 @@
 #include <iostream>
 #include <cstdio>
 
-TEST(SimilarityCheckerTest, LengthScore60) {
+using namespace testing;
+
+class SimilarityCheckerFixture : public Test {
+public:
 	SimilarityChecker checker;
 
-	string a = "AAA";
-	string b = "BBB";
-	
+	void scoreChecker(int expected, const string& left, const string& right) {
+		int actual = checker.calScore(left, right);
+
+		EXPECT_EQ(expected, actual);
+	}
+	void scoreCheckerOnlyAlpha(int expected, const string& left, const string& right) {
+		int actual = checker.calScoreWithAlpha(left, right);
+
+		EXPECT_EQ(expected, actual);
+	}
+};
+
+TEST_F(SimilarityCheckerFixture, LengthScore60) {
 	int expected = 60;
-	int actual = checker.calScore(a, b);
-	EXPECT_EQ(expected, actual);
+	scoreChecker(expected, "AAA", "BBB");
 }
 
-TEST(SimilarityCheckerTest, LengthScore0) {
-	SimilarityChecker checker;
-
-	string a = "A";
-	string b = "BB";
-
+TEST_F(SimilarityCheckerFixture, LengthScore0) {
 	int expected = 0;
-	int actual = checker.calScore(a, b);
-	EXPECT_EQ(expected, actual);
+	scoreChecker(expected, "AA", "B");
 }
 
-TEST(SimilarityCheckerTest, LengthScore20) {
-	SimilarityChecker checker;
-
-	string a = "AAABB";
-	string b = "BAA";
-
+TEST_F(SimilarityCheckerFixture, LengthScore20) {
 	int expected = 20;
-	int actual = checker.calScore(a, b);
-
-	EXPECT_EQ(expected, actual);
+	scoreChecker(expected, "AAABB", "BAA");
 }
 
-TEST(SimilarityCheckerTest, LengthScore30) {
-	SimilarityChecker checker;
-
-	string a = "AA";
-	string b = "AAE";
-
+TEST_F(SimilarityCheckerFixture, LengthScore30) {
 	int expected = 30;
-	int actual = checker.calScore(a, b);
-	EXPECT_EQ(expected, actual);
+	scoreChecker(expected, "AA", "AAE");
+}
+
+TEST_F(SimilarityCheckerFixture, alphaScore40NoSame) {
+	int expected = 40;
+	scoreCheckerOnlyAlpha(expected, "ABCD", "DBCA");
+}
+TEST_F(SimilarityCheckerFixture, alphaScore0NoSame) {
+	int expected = 0;
+	scoreCheckerOnlyAlpha(expected, "AB","CD");
+}
+TEST_F(SimilarityCheckerFixture, alphaScore0WithSame) {
+	int expected = 20;
+	scoreCheckerOnlyAlpha(expected, "AA", "AAE");
+}
+TEST_F(SimilarityCheckerFixture, alphaScore40WithSame) {
+	int expected = 40;
+	scoreCheckerOnlyAlpha(expected, "AAABB", "BA");
 }
 
 int main(void) {
