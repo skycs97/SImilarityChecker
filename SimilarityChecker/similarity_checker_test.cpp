@@ -48,6 +48,28 @@ TEST(SimilarityCheckerTest, LengthScore30) {
 	EXPECT_EQ(expected, actual);
 }
 
+TEST(SimilarityCheckerTest, alphaScore40NoSame) {
+	SimilarityChecker checker;
+
+	string a = "ABCD";
+	string b = "DBCA";
+
+	int expected = 40;
+	int actual = checker.calScoreWithAlpha(a, b);
+	EXPECT_EQ(expected, actual);
+}
+TEST(SimilarityCheckerTest, alphaScore0NoSame) {
+	SimilarityChecker checker;
+
+	string a = "AB";
+	string b = "CD";
+
+	int expected = 0;
+	int actual = checker.calScoreWithAlpha(a, b);
+	EXPECT_EQ(expected, actual);
+}
+
+
 int main(void) {
 	::testing::InitGoogleMock();
 	return RUN_ALL_TESTS();

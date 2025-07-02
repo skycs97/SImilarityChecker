@@ -19,6 +19,31 @@ public:
 
 		return floor(scoreTypeDouble);
 	}
+
+	int calScoreWithAlpha(const std::string& left, const std::string& right) {
+		string concatString = left + right;	
+		int TotalCnt = 0;
+		int SameCnt = 0;
+		for (char alpha = 'A'; alpha <= 'Z'; ++alpha) {
+			for (char c : concatString) {
+				if (alpha == c) {
+					TotalCnt++;
+					break;
+				}
+			}
+		}
+
+		for (char alpha = 'A'; alpha <= 'Z'; ++alpha) {
+			for (char l : left) {
+				for (char r : right) {
+					if (alpha == l && alpha == r) {
+						SameCnt++;
+					}
+				}
+			}
+		}
+		return floor(((double)SameCnt / TotalCnt) * 40);
+	}
 private:
 	constexpr static double ONE = 1.f;
 	constexpr static double MAX_LENGTH_SCORE = 60.f;
