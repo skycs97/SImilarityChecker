@@ -49,7 +49,14 @@ TEST_F(SimilarityCheckerFixture, alphaScore0NoSame) {
 	int expected = 0;
 	scoreCheckerOnlyAlpha(expected, "AB","CD");
 }
-
+TEST_F(SimilarityCheckerFixture, alphaScore0WithSame) {
+	int expected = 20;
+	scoreCheckerOnlyAlpha(expected, "AA", "AAE");
+}
+TEST_F(SimilarityCheckerFixture, alphaScore40WithSame) {
+	int expected = 40;
+	scoreCheckerOnlyAlpha(expected, "AAABB", "BA");
+}
 
 int main(void) {
 	::testing::InitGoogleMock();

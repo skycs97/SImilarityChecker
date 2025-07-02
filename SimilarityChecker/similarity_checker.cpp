@@ -1,5 +1,5 @@
-#include <string>
-
+﻿#include <string>
+#include <algorithm>
 using std::string;
 
 class SimilarityChecker {
@@ -21,7 +21,7 @@ public:
 	}
 
 	int calScoreWithAlpha(const std::string& left, const std::string& right) {
-		string concatString = left + right;	
+		string concatString = left + right;
 		int TotalCnt = 0;
 		int SameCnt = 0;
 		for (char alpha = 'A'; alpha <= 'Z'; ++alpha) {
@@ -32,13 +32,15 @@ public:
 				}
 			}
 		}
+		string leftTemp = left;
+		leftTemp.erase(std::unique(leftTemp.begin(), leftTemp.end()), leftTemp.end());
+		string rightTemp = right;
+		rightTemp.erase(std::unique(rightTemp.begin(), rightTemp.end()), rightTemp.end());
 
-		for (char alpha = 'A'; alpha <= 'Z'; ++alpha) {
-			for (char l : left) {
-				for (char r : right) {
-					if (alpha == l && alpha == r) {
-						SameCnt++;
-					}
+		for (char l : leftTemp) {
+			for (char r : rightTemp) {
+				if (l  == r) {
+					SameCnt++;
 				}
 			}
 		}
