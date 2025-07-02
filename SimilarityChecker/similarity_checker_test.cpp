@@ -10,7 +10,7 @@ TEST(SimilarityCheckerTest, LengthScore60) {
 	string b = "BBB";
 	
 	int expected = 60;
-	int actual = checker.checkLength(a, b);
+	int actual = checker.calScore(a, b);
 	EXPECT_EQ(expected, actual);
 }
 
@@ -21,7 +21,7 @@ TEST(SimilarityCheckerTest, LengthScore0) {
 	string b = "BB";
 
 	int expected = 0;
-	int actual = checker.checkLength(a, b);
+	int actual = checker.calScore(a, b);
 	EXPECT_EQ(expected, actual);
 }
 
@@ -32,7 +32,7 @@ TEST(SimilarityCheckerTest, LengthScore20) {
 	string b = "BAA";
 
 	int expected = 20.;
-	int actual = checker.checkLength(a, b);
+	int actual = checker.calScore(a, b);
 
 	EXPECT_EQ(expected, actual);
 }
@@ -44,7 +44,7 @@ TEST(SimilarityCheckerTest, LengthScore30) {
 	string b = "AAE";
 
 	int expected = 30;
-	int actual = checker.checkLength(a, b);
+	int actual = checker.calScore(a, b);
 	EXPECT_EQ(expected, actual);
 }
 
