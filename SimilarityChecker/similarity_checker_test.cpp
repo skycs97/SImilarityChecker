@@ -31,7 +31,7 @@ TEST(SimilarityCheckerTest, LengthScore20) {
 	string a = "AAABB";
 	string b = "BAA";
 
-	int expected = 20.;
+	int expected = 20;
 	int actual = checker.calScore(a, b);
 
 	EXPECT_EQ(expected, actual);
